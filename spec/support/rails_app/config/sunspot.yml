@@ -1,0 +1,15 @@
+# only dev and test, production and staging will have an environment variable set by Heroku and set in config/initializers/websolr.rb
+development:
+  solr:
+    hostname: localhost
+    port: 8982
+    log_level: INFO
+    max_memory: 1G
+    path: /solr/default
+
+test:
+  solr:
+    hostname: localhost
+    port: 8981
+    log_level: WARNING
+    path: /solr/test
