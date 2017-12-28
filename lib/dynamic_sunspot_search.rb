@@ -9,7 +9,7 @@ module DynamicSunspotSearch
   end
 
   module ClassMethods
-    def dynamic_sunspot_search(query_hash, search_options={})
+    def dynamic_search(query_hash, search_options={})
       search(search_options) do
         Translator.translate(self, query_hash)
       end

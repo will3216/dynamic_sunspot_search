@@ -12284,3 +12284,639 @@ Migrating to CreateBlogs (20171226223406)
   [1m[32mSOLR Request (3.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!bbox sfield=location_ll pt=32,-68 d=100}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
   [1m[32mSOLR Request (2.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "location_ll:[45,-94 TO 46,-93]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
   [1m[32mSOLR Request (2.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "location_ll:[45,-94 TO 46,-93]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171226223406)[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171226223403),
+(20171226223404),
+(20171226223405);
+
+[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-12-28 22:10:13.252126"], ["updated_at", "2017-12-28 22:10:13.252126"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:10:13.332210"], ["updated_at", "2017-12-28 22:10:13.332210"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:10:13.339048"], ["updated_at", "2017-12-28 22:10:13.339048"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:10:13.371390"], ["updated_at", "2017-12-28 22:10:13.371390"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:10:13.380965"], ["updated_at", "2017-12-28 22:10:13.380965"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 2], ["author_id", 2], ["created_at", "2017-12-28 22:10:13.384655"], ["updated_at", "2017-12-28 22:10:13.384655"]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (88.8ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:10:13.506900"], ["updated_at", "2017-12-28 22:10:13.506900"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:10:13.509380"], ["updated_at", "2017-12-28 22:10:13.509380"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 3], ["author_id", 3], ["created_at", "2017-12-28 22:10:13.511329"], ["updated_at", "2017-12-28 22:10:13.511329"]]
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (6.1ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171226223406)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171226223403),
+(20171226223404),
+(20171226223405);
+
+[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-12-28 22:11:26.824009"], ["updated_at", "2017-12-28 22:11:26.824009"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:11:26.904195"], ["updated_at", "2017-12-28 22:11:26.904195"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:11:26.911966"], ["updated_at", "2017-12-28 22:11:26.911966"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:11:26.939604"], ["updated_at", "2017-12-28 22:11:26.939604"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:11:26.947166"], ["updated_at", "2017-12-28 22:11:26.947166"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 2], ["author_id", 2], ["created_at", "2017-12-28 22:11:26.951286"], ["updated_at", "2017-12-28 22:11:26.951286"]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (40.3ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:11:27.013070"], ["updated_at", "2017-12-28 22:11:27.013070"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:11:27.015254"], ["updated_at", "2017-12-28 22:11:27.015254"]]
+  [1m[35m (3.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 3], ["author_id", 3], ["created_at", "2017-12-28 22:11:27.019866"], ["updated_at", "2017-12-28 22:11:27.019866"]]
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (5.4ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePosts (20171226223403)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171226223403"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateComments (20171226223404)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171226223404"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateAuthors (20171226223405)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171226223405"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBlogs (20171226223406)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20171226223406"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-12-28 22:12:25.263827"], ["updated_at", "2017-12-28 22:12:25.263827"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comments_on_post_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comments_on_post_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171226223406)[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171226223403),
+(20171226223404),
+(20171226223405);
+
+[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-12-28 22:12:44.382131"], ["updated_at", "2017-12-28 22:12:44.382131"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:12:44.477377"], ["updated_at", "2017-12-28 22:12:44.477377"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:12:44.484941"], ["updated_at", "2017-12-28 22:12:44.484941"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:12:44.513872"], ["updated_at", "2017-12-28 22:12:44.513872"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:12:44.521997"], ["updated_at", "2017-12-28 22:12:44.521997"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 2], ["author_id", 2], ["created_at", "2017-12-28 22:12:44.524701"], ["updated_at", "2017-12-28 22:12:44.524701"]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (118.4ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:12:44.663097"], ["updated_at", "2017-12-28 22:12:44.663097"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:12:44.666158"], ["updated_at", "2017-12-28 22:12:44.666158"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 3], ["author_id", 3], ["created_at", "2017-12-28 22:12:44.668966"], ["updated_at", "2017-12-28 22:12:44.668966"]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.4ms)[0m  [1m[31mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171226223406)[0m
+  [1m[35m (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171226223403),
+(20171226223404),
+(20171226223405);
+
+[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-12-28 22:16:03.533512"], ["updated_at", "2017-12-28 22:16:03.533512"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:16:03.607256"], ["updated_at", "2017-12-28 22:16:03.607256"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:16:03.623087"], ["updated_at", "2017-12-28 22:16:03.623087"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:16:03.651573"], ["updated_at", "2017-12-28 22:16:03.651573"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:16:03.660680"], ["updated_at", "2017-12-28 22:16:03.660680"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 2], ["author_id", 2], ["created_at", "2017-12-28 22:16:03.664107"], ["updated_at", "2017-12-28 22:16:03.664107"]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (208.8ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("post_id", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["post_id", 1], ["body", "comment body"], ["created_at", "2017-12-28 22:16:03.893385"], ["updated_at", "2017-12-28 22:16:03.893385"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:16:03.895742"], ["updated_at", "2017-12-28 22:16:03.895742"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:16:03.897625"], ["updated_at", "2017-12-28 22:16:03.897625"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 3], ["author_id", 3], ["created_at", "2017-12-28 22:16:03.899359"], ["updated_at", "2017-12-28 22:16:03.899359"]]
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 2]]
+  [1m[32mSOLR Request (6.8ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "posts"[0m
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 2]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171226223406)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171226223403),
+(20171226223404),
+(20171226223405);
+
+[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-12-28 22:20:21.221527"], ["updated_at", "2017-12-28 22:20:21.221527"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:21.299270"], ["updated_at", "2017-12-28 22:20:21.299270"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:21.306433"], ["updated_at", "2017-12-28 22:20:21.306433"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:21.328797"], ["updated_at", "2017-12-28 22:20:21.328797"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:21.338471"], ["updated_at", "2017-12-28 22:20:21.338471"]]
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 2], ["author_id", 2], ["created_at", "2017-12-28 22:20:21.341839"], ["updated_at", "2017-12-28 22:20:21.341839"]]
+  [1m[36mComment Load (0.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (43.7ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("post_id", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["post_id", 1], ["body", "comment body"], ["created_at", "2017-12-28 22:20:21.407292"], ["updated_at", "2017-12-28 22:20:21.407292"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:21.409850"], ["updated_at", "2017-12-28 22:20:21.409850"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:21.412103"], ["updated_at", "2017-12-28 22:20:21.412103"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 3], ["author_id", 3], ["created_at", "2017-12-28 22:20:21.414003"], ["updated_at", "2017-12-28 22:20:21.414003"]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 2]]
+  [1m[32mSOLR Request (6.4ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[32mSOLR Request (118.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1", "published_at_d:{* TO 2017-12-28T22:20:21Z}"][0m, sort: [1m[1m"published_at_d desc"[0m, q: [1m[1m"best pizza"[0m, fl: [1m[1m["* score", :blog_id, :title][0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m15[0m, rows: [1m[1m15[0m, facet: [1m[1m"true"[0m, f.category_ids_im.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["category_ids_im", "author_id_i"][0m, f.author_id_i.facet.mincount: [1m[1m1[0m} ]
+  [1m[32mSOLR Request (8.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text^2.0 body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (9.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, bq: [1m[1m["featured_b:true^2.0"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.7ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"body_text title_text^2.0"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (8.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m""great pizza""[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m""great pizza""[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, qs: [1m[1m1[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (21.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"great pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, pf: [1m[1m"title_text^2.0"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (6.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"great pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, ps: [1m[1m1[0m, pf: [1m[1m"title_text^2.0"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (7.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "average_rating_e:[3.0 TO 5.0]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (11.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "category_ids_im:(1 OR 3 OR 5)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "published_at_d:{2017-12-21T22:20:21Z TO *}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (5.7ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-category_ids_im:(1 OR 3)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (7.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "category_ids_im:[* TO *]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, fl: [1m[1m[:title][0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.7ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-category_ids_im:(1 OR 3)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, fl: [1m[1m[:title, :author_id][0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (4.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-(-expired_at_d:{2017-12-28T22:20:21Z TO *} AND expired_at_d:[* TO *])"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.7ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1", "author_id_i:2"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (6.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"(_query_:"{!edismax qf='title_text'}keyword1" OR _query_:"{!edismax qf='body_text'}keyword2")"[0m, fl: [1m[1m"* score"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (6.7ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "(blog_id_i:1 OR (blog_id_i:2 AND category_ids_im:3))"][0m, q: [1m[1m"((_query_:"{!edismax qf='title_text'}keyword" AND _query_:"{!edismax qf='body_text'}keyword") OR (_query_:"{!edismax qf='comments_text'}keyword" AND _query_:"{!edismax qf='title_text'}keyword") OR _query_:"{!edismax qf='body_text'}keyword2")"[0m, fl: [1m[1m"* score"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (6.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m30[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m50[0m} ]
+  [1m[32mSOLR Request (8.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"id asc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, cursorMark: [1m[1m"*"[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (5.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, facet: [1m[1m"true"[0m, f.author_id_i.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["author_id_i"][0m} ]
+  [1m[32mSOLR Request (5.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!tag=qfl0puih70xk}author_id_i:42"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, facet: [1m[1m"true"[0m, f.author_id_i.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["{!ex=qfl0puih70xk}author_id_i"][0m} ]
+  [1m[32mSOLR Request (4.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"average_rating_e desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (5.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"score desc, average_rating_e desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (11.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,rating2_e) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (5.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,product(rating2_e,rating3_e)) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (7.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,product(rating2_e,5)) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (5.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"div(sum(rating1_e,rating2_e,rating3_e),3) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (6.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!geofilt sfield=location_ll pt=32,-68 d=100}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (5.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!bbox sfield=location_ll pt=32,-68 d=100}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (4.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "location_ll:[45,-94 TO 46,-93]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20171226223406)[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20171226223403),
+(20171226223404),
+(20171226223405);
+
+[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-12-28 22:20:47.806910"], ["updated_at", "2017-12-28 22:20:47.806910"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (1.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "authors"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "authors" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "blogs"[0m
+  [1m[35m (9.1ms)[0m  [1m[35mCREATE TABLE "blogs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "comments"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer, "body" text, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "posts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" text, "body" text, "featured" boolean, "blog_id" integer, "author_id" integer, "average_rating" float, "published_at" datetime, "expired_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:47.890239"], ["updated_at", "2017-12-28 22:20:47.890239"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:47.900512"], ["updated_at", "2017-12-28 22:20:47.900512"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:47.926932"], ["updated_at", "2017-12-28 22:20:47.926932"]]
+  [1m[35m (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:47.935716"], ["updated_at", "2017-12-28 22:20:47.935716"]]
+  [1m[35m (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 2], ["author_id", 2], ["created_at", "2017-12-28 22:20:47.938251"], ["updated_at", "2017-12-28 22:20:47.938251"]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 1]]
+  [1m[32mSOLR Request (46.3ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "comments" ("post_id", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["post_id", 1], ["body", "comment body"], ["created_at", "2017-12-28 22:20:48.005815"], ["updated_at", "2017-12-28 22:20:48.005815"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "blogs" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:48.008634"], ["updated_at", "2017-12-28 22:20:48.008634"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "authors" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2017-12-28 22:20:48.011174"], ["updated_at", "2017-12-28 22:20:48.011174"]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "blog_id", "author_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "some title"], ["body", "some body"], ["blog_id", 3], ["author_id", 3], ["created_at", "2017-12-28 22:20:48.013506"], ["updated_at", "2017-12-28 22:20:48.013506"]]
+  [1m[36mComment Load (0.1ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."post_id" = ?[0m  [["post_id", 2]]
+  [1m[32mSOLR Request (6.0ms)[0m  [ path=[1m[1mupdate[0m parameters={} ]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[32mSOLR Request (6.7ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1", "published_at_d:{* TO 2017-12-28T22:20:48Z}"][0m, sort: [1m[1m"published_at_d desc"[0m, q: [1m[1m"best pizza"[0m, fl: [1m[1m["* score", :blog_id, :title][0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m15[0m, rows: [1m[1m15[0m, facet: [1m[1m"true"[0m, f.category_ids_im.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["category_ids_im", "author_id_i"][0m, f.author_id_i.facet.mincount: [1m[1m1[0m} ]
+  [1m[32mSOLR Request (5.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1", "published_at_d:{* TO 2017-12-28T22:20:48Z}"][0m, sort: [1m[1m"published_at_d desc"[0m, q: [1m[1m"best pizza"[0m, fl: [1m[1m["* score", :blog_id, :title][0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m15[0m, rows: [1m[1m15[0m, facet: [1m[1m"true"[0m, f.category_ids_im.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["category_ids_im", "author_id_i"][0m, f.author_id_i.facet.mincount: [1m[1m1[0m} ]
+  [1m[32mSOLR Request (3.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text^2.0 body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text^2.0 body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, bq: [1m[1m["featured_b:true^2.0"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, bq: [1m[1m["featured_b:true^2.0"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.7ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"body_text title_text^2.0"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (6.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"body_text title_text^2.0"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m""great pizza""[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m""great pizza""[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m""great pizza""[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, qs: [1m[1m1[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m""great pizza""[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, qs: [1m[1m1[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"great pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, pf: [1m[1m"title_text^2.0"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"great pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, pf: [1m[1m"title_text^2.0"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (5.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"great pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, ps: [1m[1m1[0m, pf: [1m[1m"title_text^2.0"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"great pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, ps: [1m[1m1[0m, pf: [1m[1m"title_text^2.0"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "average_rating_e:[3.0 TO 5.0]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (4.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "average_rating_e:[3.0 TO 5.0]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (2.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "category_ids_im:(1 OR 3 OR 5)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (2.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "category_ids_im:(1 OR 3 OR 5)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (4.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "published_at_d:{2017-12-21T22:20:48Z TO *}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "published_at_d:{2017-12-21T22:20:48Z TO *}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-category_ids_im:(1 OR 3)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-category_ids_im:(1 OR 3)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (4.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "category_ids_im:[* TO *]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "category_ids_im:[* TO *]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, fl: [1m[1m[:title][0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, fl: [1m[1m[:title][0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-category_ids_im:(1 OR 3)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, fl: [1m[1m[:title, :author_id][0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-category_ids_im:(1 OR 3)"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, fl: [1m[1m[:title, :author_id][0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-(-expired_at_d:{2017-12-28T22:20:48Z TO *} AND expired_at_d:[* TO *])"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "-(-expired_at_d:{2017-12-28T22:20:48Z TO *} AND expired_at_d:[* TO *])"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1", "author_id_i:2"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1", "author_id_i:2"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"(_query_:"{!edismax qf='title_text'}keyword1" OR _query_:"{!edismax qf='body_text'}keyword2")"[0m, fl: [1m[1m"* score"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (5.0ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"(_query_:"{!edismax qf='title_text'}keyword1" OR _query_:"{!edismax qf='body_text'}keyword2")"[0m, fl: [1m[1m"* score"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (5.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "(blog_id_i:1 OR (blog_id_i:2 AND category_ids_im:3))"][0m, q: [1m[1m"((_query_:"{!edismax qf='title_text'}keyword" AND _query_:"{!edismax qf='body_text'}keyword") OR (_query_:"{!edismax qf='comments_text'}keyword" AND _query_:"{!edismax qf='title_text'}keyword") OR _query_:"{!edismax qf='body_text'}keyword2")"[0m, fl: [1m[1m"* score"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "(blog_id_i:1 OR (blog_id_i:2 AND category_ids_im:3))"][0m, q: [1m[1m"((_query_:"{!edismax qf='title_text'}keyword" AND _query_:"{!edismax qf='body_text'}keyword") OR (_query_:"{!edismax qf='comments_text'}keyword" AND _query_:"{!edismax qf='title_text'}keyword") OR _query_:"{!edismax qf='body_text'}keyword2")"[0m, fl: [1m[1m"* score"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (5.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "blog_id_i:1"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (4.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m30[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.7ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m30[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m50[0m} ]
+  [1m[32mSOLR Request (4.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m50[0m} ]
+  [1m[32mSOLR Request (4.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"id asc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, cursorMark: [1m[1m"*"[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"id asc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, cursorMark: [1m[1m"*"[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, facet: [1m[1m"true"[0m, f.author_id_i.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["author_id_i"][0m} ]
+  [1m[32mSOLR Request (3.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, facet: [1m[1m"true"[0m, f.author_id_i.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["author_id_i"][0m} ]
+  [1m[32mSOLR Request (4.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!tag=wv1dwffkg0vv}author_id_i:42"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, facet: [1m[1m"true"[0m, f.author_id_i.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["{!ex=wv1dwffkg0vv}author_id_i"][0m} ]
+  [1m[32mSOLR Request (3.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!tag=wv1dwffkg0vv}author_id_i:42"][0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, facet: [1m[1m"true"[0m, f.author_id_i.facet.mincount: [1m[1m1[0m, facet.field: [1m[1m["{!ex=wv1dwffkg0vv}author_id_i"][0m} ]
+  [1m[32mSOLR Request (4.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"average_rating_e desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"average_rating_e desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.5ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"score desc, average_rating_e desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"score desc, average_rating_e desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,rating2_e) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,rating2_e) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.8ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,product(rating2_e,rating3_e)) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,product(rating2_e,rating3_e)) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.4ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,product(rating2_e,5)) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.9ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"sum(rating1_e,product(rating2_e,5)) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"div(sum(rating1_e,rating2_e,rating3_e),3) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post"][0m, sort: [1m[1m"div(sum(rating1_e,rating2_e,rating3_e),3) desc"[0m, q: [1m[1m"pizza"[0m, fl: [1m[1m"* score"[0m, qf: [1m[1m"title_text body_text comments_text"[0m, defType: [1m[1m"edismax"[0m, start: [1m[1m0[0m, rows: [1m[1m30[0m} ]
+  [1m[32mSOLR Request (3.6ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!geofilt sfield=location_ll pt=32,-68 d=100}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!geofilt sfield=location_ll pt=32,-68 d=100}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.2ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!bbox sfield=location_ll pt=32,-68 d=100}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (4.3ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "{!bbox sfield=location_ll pt=32,-68 d=100}"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (3.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "location_ll:[45,-94 TO 46,-93]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]
+  [1m[32mSOLR Request (4.1ms)[0m  [ path=[1m[1mselect[0m parameters={fq: [1m[1m["type:Post", "location_ll:[45,-94 TO 46,-93]"][0m, start: [1m[1m0[0m, rows: [1m[1m30[0m, q: [1m[1m"*:*"[0m} ]

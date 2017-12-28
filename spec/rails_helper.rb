@@ -4,6 +4,7 @@ require 'factory_bot'
 require 'factory_bot_rails'
 require 'rspec/rails'
 
+# require 'support/sunspot'
 require 'support/rails_app/config/environment'
 require 'support/shared_examples'
 
