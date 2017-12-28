@@ -1,7 +1,7 @@
 PATH
   remote: ../../..
   specs:
-    awesome_search (0.1.0)
+    dynamic_sunspot_search (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -135,7 +135,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesome_search!
+  dynamic_sunspot_search!
   listen (>= 3.0.5, < 3.2)
   rails (~> 5.1.4)
   sqlite3

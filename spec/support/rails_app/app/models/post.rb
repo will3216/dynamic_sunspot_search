@@ -1,8 +1,8 @@
 require 'sunspot'
-require 'awesome_search'
+require 'dynamic_sunspot_search'
 
 class Post < ActiveRecord::Base
-  include AwesomeSearch
+  include DynamicSunspotSearch
   has_many :comments
   belongs_to :author
   belongs_to :blog

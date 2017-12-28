@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesome_search (0.1.0)
+    dynamic_sunspot_search (0.1.0)
       activesupport
 
 GEM
@@ -173,7 +173,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  awesome_search!
+  dynamic_sunspot_search!
   bundler (~> 1.16)
   factory_bot
   factory_bot_rails

@@ -1,14 +1,10 @@
-require 'awesome_search/translator/text_search'
-
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
-    module All
+    module OrderByFunction
       def self.apply(query_object, options)
         return unless options.present?
         query_object.tap do |search|
-          search.all do
-            TextSearch.apply(self, options)
-          end
+          search.order_by_function(*options)
         end
       end
     end

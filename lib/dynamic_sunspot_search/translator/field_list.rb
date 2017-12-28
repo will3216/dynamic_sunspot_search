@@ -1,6 +1,6 @@
-require 'awesome_search/translator/with'
+require 'dynamic_sunspot_search/translator/with'
 
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
     module FieldList
       def self.apply(query_object, field_list)

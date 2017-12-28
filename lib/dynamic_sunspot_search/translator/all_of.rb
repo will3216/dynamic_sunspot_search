@@ -1,6 +1,6 @@
-require 'awesome_search/translator/scope'
+require 'dynamic_sunspot_search/translator/scope'
 
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
     module AllOf
       def self.apply(query_object, options)

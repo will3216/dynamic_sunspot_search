@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "awesome_search"
+require "dynamic_sunspot_search"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

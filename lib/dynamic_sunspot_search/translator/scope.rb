@@ -1,9 +1,9 @@
-require 'awesome_search/translator/all_of'
-require 'awesome_search/translator/any_of'
-require 'awesome_search/translator/with'
-require 'awesome_search/translator/without'
+require 'dynamic_sunspot_search/translator/all_of'
+require 'dynamic_sunspot_search/translator/any_of'
+require 'dynamic_sunspot_search/translator/with'
+require 'dynamic_sunspot_search/translator/without'
 
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
     module Scope
       def self.apply(query_object, options)

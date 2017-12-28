@@ -1,17 +1,17 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'awesome_search/version'
+require 'dynamic_sunspot_search/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'awesome_search'
-  spec.version       = AwesomeSearch::VERSION
+  spec.name          = 'dynamic_sunspot_search'
+  spec.version       = DynamicSunspotSearch::VERSION
   spec.authors       = ['Will Bryant']
   spec.email         = ['william@tout.com']
 
   spec.summary       = %q{Json query language for use with Solr and Ruby}
   spec.description   = %q{Json query language for use with Solr and Ruby}
-  spec.homepage      = 'https://github.com/will3216/awesome_search'
+  spec.homepage      = 'https://github.com/will3216/dynamic_sunspot_search'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})

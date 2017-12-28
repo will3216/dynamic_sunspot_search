@@ -1,8 +1,8 @@
-require 'awesome_search/translator/all'
-require 'awesome_search/translator/any'
-require 'awesome_search/translator/fulltext'
+require 'dynamic_sunspot_search/translator/all'
+require 'dynamic_sunspot_search/translator/any'
+require 'dynamic_sunspot_search/translator/fulltext'
 
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
     module TextSearch
       def self.apply(query_object, options)

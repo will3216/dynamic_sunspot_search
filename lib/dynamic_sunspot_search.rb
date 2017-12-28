@@ -1,15 +1,15 @@
 require 'active_support'
 require 'active_support/core_ext'
-require 'awesome_search/version'
-require 'awesome_search/translator'
+require 'dynamic_sunspot_search/version'
+require 'dynamic_sunspot_search/translator'
 
-module AwesomeSearch
+module DynamicSunspotSearch
   def self.included(base)
     base.extend ClassMethods
   end
 
   module ClassMethods
-    def awesome_search(query_hash, search_options={})
+    def dynamic_sunspot_search(query_hash, search_options={})
       search(search_options) do
         Translator.translate(self, query_hash)
       end

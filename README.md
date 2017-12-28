@@ -1,4 +1,4 @@
-# AwesomeSearch
+# DynamicSunspotSearch
 
 This is an extension of the sunspot_rails gem which allows you to dynamically generate search queries with the goal of fully exposing the features of sunspot and solr via API. The following docs have been pulled straight from the sunspot docs and modified to represent the query syntax this gem provides.
 
@@ -15,7 +15,7 @@ Add to Gemfile:
 ```ruby
 gem 'sunspot_rails'
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
-gem 'awesome_search'
+gem 'dynamic_sunspot_search'
 ```
 
 Bundle it!
@@ -43,7 +43,7 @@ Add a `searchable` block to the objects you wish to index.
 
 ```ruby
 class Post < ActiveRecord::Base
-  include AwesomeSearch
+  include DynamicSunspotSearch
 
   searchable do
     text :title, :body
@@ -72,7 +72,7 @@ end
 ## Searching Objects
 
 ```ruby
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: 'best pizza',
   with: [
     {blog_id: 1},
@@ -104,10 +104,10 @@ Given an object `Post` setup in earlier steps ...
 
 ```ruby
 # All posts with a `text` field (:title, :body, or :comments) containing 'pizza'
-Post.awesome_search({ fulltext: 'pizza' })
+Post.dynamic_search({ fulltext: 'pizza' })
 
 # Posts with pizza, scored higher if pizza appears in the title
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: {
     query: 'pizza',
     boost_fields: { title: 2.0 },
@@ -115,7 +115,7 @@ Post.awesome_search({
 })
 
 # Posts with pizza, scored higher if featured
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: {
     query: 'pizza',
     boost: {
@@ -128,7 +128,7 @@ Post.awesome_search({
 })
 
 # Posts with pizza *only* in the title
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: {
     query: 'pizza',
     fields: synonym,
@@ -136,7 +136,7 @@ Post.awesome_search({
 })
 
 # Posts with pizza in the title (boosted) or in the body (not boosted)
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: {
     query: 'pizza',
     fields: [:body, title: 2.0],
@@ -153,7 +153,7 @@ are represented as a double quoted group of words.
 
 ```ruby
 # Posts with the exact phrase "great pizza"
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: '"great pizza"',
 })
 ```
@@ -164,7 +164,7 @@ appear between the words in a phrase.
 ```ruby
 # One word can appear between the words in the phrase, so "great big pizza"
 # also matches, in addition to "great pizza"
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: {
     query: '"great pizza"',
     query_phrase_slop: 1,
@@ -181,7 +181,7 @@ document will score more highly.
 ```ruby
 # Matches documents with great and pizza, and scores documents more
 # highly if the terms appear in a phrase in the title field
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: {
     query: 'great pizza',
     phrase_fields: {
@@ -193,7 +193,7 @@ Post.awesome_search({
 # Matches documents with great and pizza, and scores documents more
 # highly if the terms appear in a phrase (or with one word between them)
 # in the title field
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: {
     query: 'great pizza',
     phrase_fields: {
@@ -214,7 +214,7 @@ matching is performed.
 
 ```ruby
 # Posts with a blog_id of 1
-Post.awesome_search({
+Post.dynamic_search({
   with: {
     blog_id: 1,
   },
@@ -222,21 +222,21 @@ Post.awesome_search({
 
 # Posts with an average rating between 3.0 and 5.0
 # Note the special syntax used for ranges!
-Post.awesome_search({
+Post.dynamic_search({
   with: {
     average_rating: 'range:3.0..5.0',
   },
 })
 
 # Posts with a category of 1, 3, or 5
-Post.awesome_search({
+Post.dynamic_search({
   with: {
     category_ids: [1, 3, 5]
   }
 })
 
 # Posts published since a week ago
-Post.awesome_search({
+Post.dynamic_search({
   with: {
     published_at: {
       greater_than: time,
@@ -249,7 +249,7 @@ Post.awesome_search({
 
 ```ruby
 # Posts not in category 1 or 3
-Post.awesome_search({
+Post.dynamic_search({
   without: {
     category_ids: [1, 3],
   },
@@ -262,28 +262,28 @@ Post.awesome_search({
 
 ```ruby
 # Passing an empty array is equivalent to a no-op, meaning this...
-Post.awesome_search({
+Post.dynamic_search({
   with: {
     category_ids: [],
   },
 })
 
 # ...is equivalent to this...
-Post.awesome_search({})
+Post.dynamic_search({})
 ```
 
 #### Restrictions and Field List
 
 ```ruby
 # Posts with a blog_id of 1
-Post.awesome_search({
+Post.dynamic_search({
   with: {
     blog_id: 1,
   },
   field_list: [:title]
 })
 
-Post.awesome_search({
+Post.dynamic_search({
   without: {
     category_ids: [1, 3],
   },
@@ -295,7 +295,7 @@ Post.awesome_search({
 
 ```ruby
 # Posts that do not have an expired time or have not yet expired
-Post.awesome_search({
+Post.dynamic_search({
   any_of: {
     with: [
       {
@@ -313,7 +313,7 @@ Post.awesome_search({
 
 ```ruby
 # Posts with blog_id 1 and author_id 2
-Post.awesome_search({
+Post.dynamic_search({
   all_of: [
     {
       with: {
@@ -327,7 +327,7 @@ Post.awesome_search({
 
 ```ruby
 # Posts scoring with any of the two fields.
-Post.awesome_search({
+Post.dynamic_search({
   any: [
     {
       fulltext: {
@@ -348,7 +348,7 @@ Post.awesome_search({
 Disjunctions and conjunctions may be nested
 
 ```ruby
-Post.awesome_search({
+Post.dynamic_search({
   any_of: {
     with: { blog_id: 1},
     all_of: {
@@ -409,7 +409,7 @@ full-text term.
 
 ```ruby
 # Posts with blog_id 1 and 'pizza' in the title
-Post.awesome_search({
+Post.dynamic_search({
   with: { blog_id: 1 },
   fulltext: 'pizza',
 })
@@ -426,7 +426,7 @@ and kaminari.
 By default, Sunspot requests the first 30 results from Solr.
 
 ```ruby
-search = Post.awesome_search({
+search = Post.dynamic_search({
   fulltext: 'pizza',
 })
 
@@ -448,7 +448,7 @@ To retrieve the next page of results, recreate the search and use the
 `paginate` method.
 
 ```ruby
-search = Post.awesome_search({
+search = Post.dynamic_search({
   fulltext: 'pizza',
   paginate: { page: 2 },
 })
@@ -471,7 +471,7 @@ A custom number of results per page can be specified with the
 `:per_page` option to `paginate`:
 
 ```ruby
-search = Post.awesome_search({
+search = Post.dynamic_search({
   fulltext: :pizza,
   paginate: {
     page: 1,
@@ -491,7 +491,7 @@ Useful for any kinds of export, infinite scroll, etc.
 
 Cursor for the first page is "\*".
 ```ruby
-search = Post.awesome_search({
+search = Post.dynamic_search({
   fulltext: 'pizza',
   paginate: {
     cursor: '*',
@@ -512,7 +512,7 @@ results.last_page?     # => false
 
 To retrieve the next page of results, recreate the search and use the `paginate` method with cursor from previous results.
 ```ruby
-search = Post.awesome_search({
+search = Post.dynamic_search({
   fulltext: 'pizza',
   paginate: {
     cursor: 'AoIIP4AAACxQcm9maWxlIDEwMTk='
@@ -552,7 +552,7 @@ increase this limit, or force it to return *all* facets by setting
 
 ```ruby
 # Posts that match 'pizza' returning counts for each :author_id
-search = Post.awesome_search({
+search = Post.dynamic_search({
   fulltext: 'pizza',
   facet: 'author_id',
 })
@@ -569,7 +569,7 @@ faceting.
 ```ruby
 # Posts that match 'pizza' and author with id 42
 # Returning counts for each :author_id (even those not in the search result)
-search = Post.awesome_search({
+search = Post.dynamic_search({
   fulltext: 'pizza',
   facet: {
     fields: :author_id,
@@ -593,7 +593,7 @@ relevancy metric. Sorting can be customized with the `order_by` method:
 
 ```ruby
 # Order by average rating, descending
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: 'pizza',
   order_by: {
     average_rating: :desc,
@@ -601,7 +601,7 @@ Post.awesome_search({
 })
 
 # Order by relevancy score and in the case of a tie, average rating
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: 'pizza',
   order_by: [
     { score: :desc },
@@ -610,7 +610,7 @@ Post.awesome_search({
 })
 
 # Randomized ordering
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: 'pizza',
   order_by: :random,
 })
@@ -626,25 +626,25 @@ Functions are defined with prefix notation:
 
 ```ruby
 # Order by sum of two example fields: rating1 + rating2
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: 'pizza',
   order_by_function: [:sum, :rating1, :rating2, :desc],
 })
 
 # Order by nested functions: rating1 + (rating2*rating3)
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: 'pizza',
   order_by_function: [:sum, :rating1, [:product, :rating2, :rating3], :desc]
 })
 
 # Order by fields and constants: rating1 + (rating2 * 5)
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: 'pizza',
   order_by_function: [:sum, :rating1, [:product, :rating2, '5'], :desc],
 })
 
 # Order by average of three fields: (rating1 + rating2 + rating3) / 3
-Post.awesome_search({
+Post.dynamic_search({
   fulltext: 'pizza',
   order_by_function: [:div, [:sum, :rating1, :rating2, :rating3], '3', :desc],
 })

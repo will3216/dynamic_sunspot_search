@@ -1,4 +1,4 @@
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
     module OrderBy
       def self.apply(query_object, order_by)

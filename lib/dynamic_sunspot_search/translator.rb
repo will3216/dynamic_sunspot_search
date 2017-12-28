@@ -1,12 +1,12 @@
-require 'awesome_search/translator/facet'
-require 'awesome_search/translator/field_list'
-require 'awesome_search/translator/order_by'
-require 'awesome_search/translator/order_by_function'
-require 'awesome_search/translator/paginate'
-require 'awesome_search/translator/scope'
-require 'awesome_search/translator/text_search'
+require 'dynamic_sunspot_search/translator/facet'
+require 'dynamic_sunspot_search/translator/field_list'
+require 'dynamic_sunspot_search/translator/order_by'
+require 'dynamic_sunspot_search/translator/order_by_function'
+require 'dynamic_sunspot_search/translator/paginate'
+require 'dynamic_sunspot_search/translator/scope'
+require 'dynamic_sunspot_search/translator/text_search'
 
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
     def self.translate(query_object, query_hash)
       query = query_hash.deep_dup.deep_symbolize_keys

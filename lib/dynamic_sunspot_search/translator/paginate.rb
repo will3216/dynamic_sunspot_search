@@ -1,4 +1,4 @@
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
     module Paginate
       def self.apply(query_object, pagination)

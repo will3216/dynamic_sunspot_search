@@ -1,4 +1,4 @@
-module AwesomeSearch
+module DynamicSunspotSearch
   module Translator
     module With
       def self.apply(query_object, with_scope)

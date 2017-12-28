@@ -9,7 +9,7 @@ RSpec.shared_examples_for 'a translated query' do
   let(:options) { Hash.new }
   let!(:expected) { klass.search(options, &expected_block).query.to_params }
 
-  subject { klass.awesome_search(query, options).query.to_params }
+  subject { klass.dynamic_search(query, options).query.to_params }
 
   it 'should translate correctly' do
     # ap subject
