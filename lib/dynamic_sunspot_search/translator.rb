@@ -18,7 +18,7 @@ module DynamicSunspotSearch
         OrderByFunction.apply(search, query.delete(:order_by_function))
         Paginate.apply(search, query.delete(:paginate))
         Facet.apply(search, query.delete(:facet))
-        raise ArgumentError.new("Unknown keys detected: #{options.keys}") unless query.blank?
+        raise ArgumentError.new("Unknown keys detected: #{query.keys}") unless query.blank?
       end
     end
   end
