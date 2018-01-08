@@ -26,7 +26,7 @@ module DynamicSunspotSearch
       end
 
       def self.build_boost_string(field, half_life)
-        half_life_ms = calculate_half_life_ms(half_life)
+        half_life_ms = calculate_half_life_ms(half_life).to_i
         half_life_recip = BigDecimal((1.0/(half_life_ms)).to_s).to_s('E').downcase
         "recip(ms(NOW,#{field.to_s}_dt),#{half_life_recip},100,1)"
       end

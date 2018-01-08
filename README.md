@@ -666,7 +666,7 @@ class Post
 ```
 
 Then by using the `boost_receny` method, where half_life defines the half life
-period of the exponential decay function:
+period of the exponential decay function (non-integer values will be rounded down):
 
 ```ruby
 # Posts that were published 5 day ago will have their scores cut in half
@@ -703,13 +703,13 @@ Post.dynamic_search({
   },
 })
 
-# Posts that were published 29.5 months ago will have their scores cut in half
+# Posts that were published 29 months ago will have their scores cut in half
 Post.dynamic_search({
   fulltext: 'pizza',
   boost_recency: {
     field: :published_at,
     half_life: {
-      months: 29.5,
+      months: 29,
     },
   },
 })
