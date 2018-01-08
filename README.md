@@ -650,6 +650,71 @@ Post.dynamic_search({
 })
 ```
 
+#### Boost By Recency
+
+By default, Sunspot orders results by "score": the Solr-determined
+relevancy metric. This score can be weighted based on the documents recency by
+defining a field as type trie:
+
+```ruby
+class Post
+  searchable do
+    # ...
+    time :published_at, trie: true
+    # ...
+  end
+```
+
+Then by using the `boost_receny` method, where half_life defines the half life
+period of the exponential decay function:
+
+```ruby
+# Posts that were published 5 day ago will have their scores cut in half
+Post.dynamic_search({
+  fulltext: 'pizza',
+  boost_recency: {
+    field: :published_at,
+    half_life: {
+      days: 5,
+    },
+  },
+})
+
+# Posts that were published 1 year ago will have their scores cut in half
+Post.dynamic_search({
+  fulltext: 'pizza',
+  boost_recency: {
+    field: :published_at,
+    half_life: {
+      year: 1,
+    },
+  },
+})
+
+# Posts that were published 37 minutes and 10 seconds ago will have their scores cut in half
+Post.dynamic_search({
+  fulltext: 'pizza',
+  boost_recency: {
+    field: :published_at,
+    half_life: {
+      minutes: 37,
+      seconds: 10,
+    },
+  },
+})
+
+# Posts that were published 29.5 months ago will have their scores cut in half
+Post.dynamic_search({
+  fulltext: 'pizza',
+  boost_recency: {
+    field: :published_at,
+    half_life: {
+      months: 29.5,
+    },
+  },
+})
+```
+
 ### Geospatial
 
 **Sunspot 2.0 only**

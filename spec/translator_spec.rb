@@ -776,4 +776,75 @@ RSpec.describe 'basic conversion' do
       }
     end
   end
+
+  it_behaves_like 'a translated query' do
+    let(:half_life_seconds) { rand(1000000) }
+    let(:expected_block) do
+      Proc.new do |search|
+        search.adjust_solr_params do |sunspot_params|
+          sunspot_params[:defType] = 'edismax'
+          reciprocal_string = BigDecimal((1.0/(half_life_seconds*1000)).to_s).to_s('E').downcase
+          sunspot_params[:boost] = "recip(ms(NOW,published_at_dt),#{reciprocal_string},100,1)"
+        end
+      end
+    end
+    let(:query) do
+      {
+        boost_recency: {
+          field: :published_at,
+          half_life: {
+            seconds: half_life_seconds,
+          },
+        },
+      }
+    end
+  end
+
+  it_behaves_like 'a translated query' do
+    let(:half_life_minutes) { rand(10000) }
+    let(:expected_block) do
+      Proc.new do |search|
+        search.adjust_solr_params do |sunspot_params|
+          sunspot_params[:defType] = 'edismax'
+          reciprocal_string = BigDecimal((1.0/(half_life_minutes*60*1000)).to_s).to_s('E').downcase
+          sunspot_params[:boost] = "recip(ms(NOW,published_at_dt),#{reciprocal_string},100,1)"
+        end
+      end
+    end
+    let(:query) do
+      {
+        boost_recency: {
+          field: :published_at,
+          half_life: {
+            minutes: half_life_minutes,
+          },
+        },
+      }
+    end
+  end
+
+  it_behaves_like 'a translated query' do
+    let(:half_life_minutes) { rand(10000) }
+    let(:half_life_days) { rand(7) }
+    let(:expected_block) do
+      Proc.new do |search|
+        search.adjust_solr_params do |sunspot_params|
+          sunspot_params[:defType] = 'edismax'
+          reciprocal_string = BigDecimal((1.0/((half_life_minutes.minutes.to_i + half_life_days.days.to_i)*1000)).to_s).to_s('E').downcase
+          sunspot_params[:boost] = "recip(ms(NOW,published_at_dt),#{reciprocal_string},100,1)"
+        end
+      end
+    end
+    let(:query) do
+      {
+        boost_recency: {
+          field: :published_at,
+          half_life: {
+            minutes: half_life_minutes,
+            days: half_life_days,
+          },
+        },
+      }
+    end
+  end
 end

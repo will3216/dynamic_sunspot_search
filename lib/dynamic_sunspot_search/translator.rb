@@ -1,3 +1,4 @@
+require 'dynamic_sunspot_search/translator/boost_recency'
 require 'dynamic_sunspot_search/translator/facet'
 require 'dynamic_sunspot_search/translator/field_list'
 require 'dynamic_sunspot_search/translator/order_by'
@@ -18,6 +19,7 @@ module DynamicSunspotSearch
         OrderByFunction.apply(search, query.delete(:order_by_function))
         Paginate.apply(search, query.delete(:paginate))
         Facet.apply(search, query.delete(:facet))
+        BoostRecency.apply(search, query.delete(:boost_recency))
         raise ArgumentError.new("Unknown keys detected: #{query.keys}") unless query.blank?
       end
     end

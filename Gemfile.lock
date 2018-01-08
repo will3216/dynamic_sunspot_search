@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dynamic_sunspot_search (0.1.0)
+    dynamic_sunspot_search (0.1.2)
       activesupport
 
 GEM
@@ -188,4 +188,4 @@ DEPENDENCIES
   sunspot_solr
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
