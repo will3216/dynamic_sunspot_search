@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dynamic_sunspot_search (0.1.3)
+    dynamic_sunspot_search (0.1.4)
       activesupport
 
 GEM
